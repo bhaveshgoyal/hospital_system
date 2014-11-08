@@ -135,7 +135,7 @@
             </div>
             <div class="row">
                 <p>
-                   <a href="createtechnician.php" class="btn btn-warning">Create Technician</a>
+                   <a href="mytechcreate.php" class="btn btn-warning">Create Technician</a>
                    <button id="backtech" class="btn btn-primary back">Back to Employee(s)</button>
                 </p>
                 <table class="table table-striped table-bordered">
@@ -165,11 +165,11 @@
                             echo '<td>'. $row['Phone'] . '</td>';
                             echo '<td>'. $row['SSN']. '</td>';
                             echo '<td width=250>';
-                            echo '<a class="btn" href="readtechnician.php?id='.$row['PId'].'">Read</a>';
+                            echo '<a class="btn" href="myreadtech.php?id='.$row['PId'].'">Read</a>';
                             echo ' ';
-                            echo '<a class="btn btn-success" href="updatetechnician.php?id='.$row['PId'].'">Update</a>';
+                            echo '<a class="btn btn-success" href="myupdatetech.php?id='.$row['PId'].'">Update</a>';
                             echo ' ';
-                            echo '<a class="btn btn-danger" href="deletetechnician.php?id='.$row['PId'].'">Delete</a>';
+                            echo '<a class="btn btn-danger" href="mydeletetech.php?id='.$row['PId'].'">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                    }
@@ -189,7 +189,7 @@
             </div>
             <div class="row">
                 <p>
-                   <a href="createnurse.php" class="btn btn-warning">Create Nurse</a>
+                   <a href="mynursecreate.php" class="btn btn-warning">Create Nurse</a>
                    <button id="backnurse" class="btn btn-primary back">Back to Employee(s)</button>
                 </p>
                 <table class="table table-striped table-bordered table-hover">
@@ -219,11 +219,11 @@
                             echo '<td>'. $row['Phone'] . '</td>';
                             echo '<td>'. $row['SSN']. '</td>';
                             echo '<td width=250>';
-                            echo '<a class="btn" href="readnurse.php?id='.$row['PId'].'">Read</a>';
+                            echo '<a class="btn" href="myreadnurse.php?id='.$row['PId'].'">Read</a>';
                             echo ' ';
-                            echo '<a class="btn btn-success" href="updatenurse.php?id='.$row['PId'].'">Update</a>';
+                            echo '<a class="btn btn-success" href="myupdatenurse.php?id='.$row['PId'].'">Update</a>';
                             echo ' ';
-                            echo '<a class="btn btn-danger" href="deletenurse.php?id='.$row['PId'].'">Delete</a>';
+                            echo '<a class="btn btn-danger" href="mydeletenurse.php?id='.$row['PId'].'">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                    }
@@ -242,7 +242,7 @@
             </div>
             <div class="row">
                 <p>
-                   <a href="createphysician.php" class="btn btn-warning">Create Physician</a>
+                   <a href="myphyscreate.php" class="btn btn-warning">Create Physician</a>
                   <button id="backphys" class="btn btn-primary back">Back to Employee(s)</button>
                 </p>
                 <table class="table table-striped table-bordered table-hover">
@@ -272,11 +272,11 @@
                             echo '<td>'. $row['Phone'] . '</td>';
                             echo '<td>'. $row['SSN']. '</td>';
                             echo '<td width=250>';
-                            echo '<a class="btn" href="readphysician.php?id='.$row['PId'].'">Read</a>';
+                            echo '<a class="btn" href="myreadphys.php?id='.$row['PId'].'">Read</a>';
                             echo ' ';
-                            echo '<a class="btn btn-success" href="updatephysician.php?id='.$row['PId'].'">Update</a>';
+                            echo '<a class="btn btn-success" href="myupdatephys.php?id='.$row['PId'].'">Update</a>';
                             echo ' ';
-                            echo '<a class="btn btn-danger" href="deletephysician.php?id='.$row['PId'].'">Delete</a>';
+                            echo '<a class="btn btn-danger" href="mydeletephys.php?id='.$row['PId'].'">Delete</a>';
                             echo '</td>';
                             echo '</tr>';
                    }
