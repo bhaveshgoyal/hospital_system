@@ -34,15 +34,31 @@
 
     <title>SB Admin - Bootstrap Admin Template</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css " />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.css.map " />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+   <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css.map " />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
 
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+<style>
+    .form-horizontal .control-group{margin-bottom:20px;*zoom:1}.form-horizontal .control-group:before,.form-horizontal .control-group:after{display:table;line-height:0;content:""}.form-horizontal .control-group:after{clear:both}.form-horizontal .control-label{float:left;width:160px;padding-top:5px;text-align:right}.form-horizontal .controls{*display:inline-block;*padding-left:20px;margin-left:180px;*margin-left:0}.form-horizontal .controls:first-child{*padding-left:180px}.form-horizontal .help-block{margin-bottom:0}.form-horizontal input+.help-block,.form-horizontal select+.help-block,.form-horizontal textarea+.help-block,.form-horizontal .uneditable-input+.help-block,.form-horizontal .input-prepend+.help-block,.form-horizontal .input-append+.help-block{margin-top:10px}.form-horizontal .form-actions{padding-left:180px}table{max-width:100%;background-color:transparent;border-collapse:collapse;border-spacing:0}
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -54,11 +70,12 @@
 
 <body>
 
+
     <div id="wrapper">
 <?php include_once('header.php'); ?>
 
         <div id="page-wrapper">
-
+  
             <div class="container-fluid">
                 <!-- Page Heading -->
                 <div class="row">
@@ -81,12 +98,13 @@
 
    <div class="container" style="display:none;">
      
-                <div class="span10 offset1">
+       <div class="span10 offset1">
                     <div class="row">
                         <h3>Nurse's Information</h3>
                     </div>
                      
                     <div class="form-horizontal" >
+                      
                       <div class="control-group">
                         <label class="control-label">Name</label>
                         <div class="controls">
@@ -156,8 +174,17 @@
                        <div class="control-group">
                         <label class="control-label">Department Assigned</label>
                         <div class="controls">
-                            <label class="checkbox">
-                                <?php echo $data2['DepW'];?>
+                                       <label class="checkbox">
+                                  <?php
+                                   $id2 = $data2['DepW'];
+                                   $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+                                   $query = "SELECT Name from Department where Id='$id2'";
+                                   $result2 = mysqli_query($dbc, $query);
+                                  $result2 = mysqli_fetch_array($result2);
+                                   echo $result2['Name'];
+                                   mysqli_close($dbc);
+                                ?>
+
                             </label>
                         </div>
                       </div>
@@ -181,26 +208,8 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
     <script>
 $(document).ready(function(){
-//   if ($.browser.webkit) {
-//     $('input[name="password"]').attr('autocomplete', 'off');
-//     $('input[name="username"]').attr('autocomplete', 'off');
-// }
-    // to fade in on page load
-    // $(".entire").css("display", "none");
-     // $('#example1').datepicker({
-     //                format: "yyyy-mm-dd"
-     //            });  
-     //            $('#example2').datepicker({
-     //               format: "yyyy-mm-dd"
-     //            });
-            
 
     $(".container").toggle("slide"); 
      });

@@ -2,6 +2,7 @@
   session_start();
  require_once('connectvars.php');
  include 'permission.php';
+ include 'process_patients.php';
   // If the session vars aren't set, try to set them with a cookie
 /*  if (!isset($_SESSION['user_id'])) {
     if (isset($_COOKIE['user_id']) && isset($_COOKIE['username'])) {
@@ -99,7 +100,7 @@
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
+                <div class="row row-flash">
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -115,11 +116,11 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
+                                        <i class="fa fa-user-md fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge"><?php echo "$count" ?></div>
-                                        <div>New SignUp Requests!</div>
+                                        <div>New Account Requests!</div>
                                     </div>
                                 </div>
                             </div>
@@ -137,11 +138,11 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
+                                        <i class="fa fa-briefcase fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
-                                        <div>New Tasks!</div>
+                                        <div class="huge"><?php echo "$totalemp" ?></div>
+                                        <div>Employees Hired!</div>
                                     </div>
                                 </div>
                             </div>
@@ -159,11 +160,11 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
+                                        <i class="fa fa-ambulance fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">124</div>
-                                        <div>New Orders!</div>
+                                        <div>Beds Taken!</div>
                                     </div>
                                 </div>
                             </div>
@@ -181,11 +182,11 @@
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
+                                        <i class="fa fa-cog fa-spin fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
+                                        <div>Labs Working!</div>
                                     </div>
                                 </div>
                             </div>
@@ -219,12 +220,12 @@
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Donut Chart</h3>
+                                <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i>Person Details</h3>
                             </div>
                             <div class="panel-body">
                                 <div id="morris-donut-chart"></div>
                                 <div class="text-right">
-                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="myemployees.php">View Details <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -371,7 +372,39 @@
     <script src="js/plugins/morris/raphael.min.js"></script>
     <script src="js/plugins/morris/morris.min.js"></script>
     <script src="js/plugins/morris/morris-data.js"></script>
+   
+    <script>
+   $(document).ready(function(){
+    alert("this");
+     
+    setTimeout(function() {
+    $(".row-flash").fadeOut("200");
+    }, 100);
 
+   });
+
+   </script>
+   
+   <script>
+    
+     Morris.Donut({
+        element: 'morris-donut-chart',
+        data: [{
+            label: "In Patients",
+            value:   <?php echo "$countin"
+    ?>
+        }, {
+            label: "Out Patients",
+            value: <?php echo "$countout"
+    ?>
+        }, {
+            label: "No. of Employees",
+            value: <?php echo "$totalemp" ?>
+        }],
+        resize: true
+    });
+
+</script>
 </body>
 
 </html>

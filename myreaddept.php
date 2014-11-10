@@ -1,34 +1,25 @@
 <?php
-   ob_start();
-   session_start();
-    if(isset($_SESSION['adminornot'])){
-        if($_SESSION['adminornot'] == '1') {
+    ob_start();
+    session_start();
+    if(isset($_SESSION['adminornot'])) {
+       if($_SESSION['adminornot'] == '1') {
     require_once('connectvars.php');
-    $id = 0;
-     
+    $id = null;
     if ( !empty($_GET['id'])) {
         $id = $_REQUEST['id'];
     }
      
-    if ( !empty($_POST)) {
-        $id = $_POST['id'];
-         
+    if ( null==$id ) {
+        header("Location: mydept.php");
+    } else {
         $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-        $query = "SELECT * from Employee where PId = '$id'";
+        $query = "SELECT * from Department where Id = '$id'";
         $result = mysqli_query($dbc, $query);
-        $row = mysqli_fetch_array($result);
-        $empx = $row['Id'];
-        $query = "DELETE FROM Physician where EId = '$empx'";
-        mysqli_query($dbc, $query);
-        $query = "DELETE FROM Employee where PId = '$id'";
-        mysqli_query($dbc, $query);
-        $query = "DELETE FROM Persons WHERE Id='$id'";
-        mysqli_query($dbc, $query);
-        header("Location: myemployees.php");
-         
+        $data = mysqli_fetch_array($result);
+        mysqli_close($dbc);
     }
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,12 +48,21 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<style>
+#in, #out, #overall , body, #page-wrapper,  .container-fluid{
+  -webkit-backface-visibility: hidden;
+}
+#in, #out, #overall, #page-wrapper,  .container-fluid{
+-webkit-transform-style: preserve-3d;
+}
+</style>
 </head>
 
 <body>
 
     <div id="wrapper">
+
+
 <?php include_once('header.php'); ?>
 
         <div id="page-wrapper">
@@ -72,35 +72,59 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Tables
+                            Lab Section
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="admin_index.php">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-table"></i> Manage Database
+                                <i class="fa fa-hospital-o"></i> Manage Departments
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-
-      <div class="container" style="display:none;">
+ 
+  <div class="container" style="display:none;">
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Delete Physician Entry</h3>
+                        <h3>Department Information</h3>
                     </div>
                      
-                    <form class="form-horizontal" action="mydeletephys.php" method="post">
-                      <input type="hidden" name="id" value="<?php echo $id;?>"/>
-                      <p class="alert alert-error">Are you sure to delete ?</p>
-                      <div class="form-actions">
-                          <button type="submit" class="btn btn-danger">Yes</button>
-                          <a class="btn" href="myemployees.php">No</a>
+                    <div class="form-horizontal" >
+                      <div class="control-group">
+                        <label class="control-label">Department Name</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['Name'];?>
+                            </label>
                         </div>
-                    </form>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label">Location</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['Location'];?>
+                            </label>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label">Phone Number</label>
+                        <div class="controls">
+                            <label class="checkbox">
+                                <?php echo $data['Phone'];?>
+                            </label>
+                        </div>
+                      </div>
+                        <div class="form-actions">
+                          <a class="btn" href="mydept.php">Back</a>
+                       </div>
+                     
+                      
+                    </div>
                 </div>
                  
     </div>
@@ -118,29 +142,17 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    <script>
+<script>
 $(document).ready(function(){
-//   if ($.browser.webkit) {
-//     $('input[name="password"]').attr('autocomplete', 'off');
-//     $('input[name="username"]').attr('autocomplete', 'off');
-// }
-    // to fade in on page load
-    // $(".entire").css("display", "none");
-     // $('#example1').datepicker({
-     //                format: "yyyy-mm-dd"
-     //            });  
-     //            $('#example2').datepicker({
-     //               format: "yyyy-mm-dd"
-     //            });
-            
 
-    $(".container").toggle("slide"); 
-     });
+  $(".container").toggle("slide");
+
+});
 </script>
 </body>
 
 </html>
 <?php
- }
+}
 }
 ?>

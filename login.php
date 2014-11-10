@@ -93,6 +93,19 @@ body{
   -webkit-filter: blur(5px);
   z-index: 0;
 }
+h1{
+  font-family: 'Exo', sans-serif;
+  margin-top: 1.4em;
+ font-weight: 400;
+  margin-left: 1.3em;
+ color: #FFFFFF;
+}
+.sub{
+  font-family: 'Exo', sans-serif;
+  margin-top: 1.4em;
+ font-weight: 400;
+ color: #FFFFFF;
+}
 
 .grad{
   position: absolute;
@@ -229,7 +242,7 @@ body{
     echo '<p class="error">' . $error_msg . '</p>';
 ?>
   <div class="body"></div>
-    <div class="grad"></div>
+    <div class="grad"><h1>Columbia Asia<span class="sub"> Management Portal</span></h1></div>
     <div class="entire">
     <div class="header">
       <div>Login<span>&nbsp;Here</span></div>

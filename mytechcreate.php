@@ -10,7 +10,10 @@
         $nameError = null;
         $addError = null;
         $phoneError = null;
-         
+        $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+        $query = "SELECT * FROM Lab";
+        $result2 = mysqli_query($dbc, $query);
+        mysqli_close($dbc); 
         // keep track post values
         $fname = $_POST['fname'];
         $mname = $_POST['mname'];
@@ -20,7 +23,9 @@
         $phone = $_POST['phone'];
         $date = $_POST['dob'];
         $dateofhire = $_POST['doth'];
-        $lab = $_POST['lab']; 
+        $lab = $_POST['lab'];
+        $lab = explode(':', $lab);
+        $lab = $lab[0]; 
         $aadhar = $_POST['aadha'];
         // validate input
         $valid = true;
@@ -61,8 +66,14 @@
             $result = mysqli_query($dbc, $query);
          
             mysqli_close($dbc);
-            header("Location: mytechcreate.php");
+            header("Location: myemployees.php");
         }
+    }
+    else {
+       $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+       $query = "SELECT * FROM Lab";
+       $result2 = mysqli_query($dbc, $query);
+       mysqli_close($dbc);
     }
 ?>
 <!DOCTYPE html>
@@ -83,6 +94,8 @@
 
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
+
+     <link href="css/datepicker.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -125,49 +138,49 @@
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Create a Technician</h3>
+                        <h3>Add Technician</h3>
                     </div>
              
                     <form class="form-horizontal" action="mytechcreate.php" method="post">
-                     <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
+                     <div class="control-group">
                         <label class="control-label">First Name</label>
                         <div class="controls">
-                            <input name="fname" type="text"  placeholder="First Name" value="<?php echo !empty($fname)?$fname:'';?>">
+                            <input name="fname" class="form-control" type="text"  placeholder="First Name" value="<?php echo !empty($fname)?$fname:'';?>">
                             <?php if (!empty($nameError)): ?>
-                                <span class="help-inline"><?php echo $nameError;?></span>
+                                <span class="help-block" style="color:red;"><?php echo $nameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
                        <div class="control-group">
                         <label class="control-label">Middle Name</label>
                         <div class="controls">
-                            <input name="mname" type="text"  placeholder="Middle Name">
+                            <input name="mname" class="form-control" type="text"  placeholder="Middle Name">
                             
                         </div>
                       </div>
                        <div class="control-group">
                         <label class="control-label">Last Name</label>
                         <div class="controls">
-                            <input name="lname" type="text"  placeholder="Last Name" value="<?php echo !empty($lname)?$lname:'';?>">
+                            <input name="lname" class="form-control" type="text"  placeholder="Last Name" value="<?php echo !empty($lname)?$lname:'';?>">
                         </div>
                       </div>
                      
 
-                      <div class="control-group <?php echo !empty($addError)?'error':'';?>">
+                      <div class="control-group">
                         <label class="control-label">Address</label>
                         <div class="controls">
-                            <input name="address" type="text" placeholder="Address" value="<?php echo !empty($address)?$address:'';?>">
+                            <input name="address" type="text" class="form-control" placeholder="Address" value="<?php echo !empty($address)?$address:'';?>">
                             <?php if (!empty($addError)): ?>
-                                <span class="help-inline"><?php echo $addError;?></span>
+                                <span class="help-block" style="color:red;"><?php echo $addError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
-                      <div class="control-group <?php echo !empty($phoneError)?'error':'';?>">
+                      <div class="control-group">
                         <label class="control-label">Phone Number</label>
                         <div class="controls">
-                            <input name="phone" type="text"  placeholder="Phone Number" value="<?php echo !empty($phone)?$phone:'';?>">
+                            <input name="phone" type="text" class="form-control" placeholder="Phone Number" value="<?php echo !empty($phone)?$phone:'';?>">
                             <?php if (!empty($mobileError)): ?>
-                                <span class="help-inline"><?php echo $phoneError;?></span>
+                                <span class="help-block" style="color:red;"><?php echo $phoneError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
@@ -181,13 +194,13 @@
                     <div class="control-group">
                       <label class="control-label">Date Of Birth</label>
                       <div class="controls">
-                         <input  type="text" name="dob" placeholder="click to show datepicker"  id="example1">
+                         <input  type="text" name="dob"  class="form-control" placeholder="Click To Select Date"  id="example1">
                       </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Aadhar Number</label>
                         <div class="controls">
-                            <input name="aadha" type="text"  placeholder="Aadhar Card Number">
+                            <input name="aadha" type="text" class="form-control"  placeholder="Aadhar Card Number">
                             
                         </div>
                       </div>
@@ -195,18 +208,30 @@
                      <div class="control-group">
                       <label class="control-label">Date of being Hired</label>
                       <div class="controls">
-                         <input  type="text" name="doth" placeholder="click to show datepicker"  id="example2">
+                         <input  type="text" name="doth" class="form-control" placeholder="Click To Select Date"  id="example2">
                       </div>
                     </div>
-                    <div class="control-group">
+      <!--              <div class="control-group">
                      <label class="control-label">Labs assigned</label>
                      <div class="controls">
                         <input type="text" name="lab" placeholder="Enter the Lab id">
                      </div>
-                    </div>
+                    </div> -->
+                    <div class="control-group">
+                      <label class="control-label">Lab Assigned</label>
+                        <div class="controls">
+                          <select class="form-control" name="lab">
+                          <?php 
+                          while($row = mysqli_fetch_array($result2)) {
+                              echo '<option>'.$row['Id'].':'.$row['Name'].'</option>';
+                          }
+                         ?>
+                         </select>
+                        </div>
+                   </div>
  
                           <button type="submit" class="btn btn-success">Create</button>
-                          <a class="btn" href="myemployees.php">Back To Employees</a>
+                          <a class="btn btn-primary" href="myemployees.php">Back</a>
                         </div>
                     </form>
                 </div>
@@ -225,6 +250,7 @@
 
     <!-- jQuery Version 1.11.0 -->
     <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -236,12 +262,12 @@ $(document).ready(function(){
 // }
     // to fade in on page load
     // $(".entire").css("display", "none");
-     // $('#example1').datepicker({
-     //                format: "yyyy-mm-dd"
-     //            });  
-     //            $('#example2').datepicker({
-     //               format: "yyyy-mm-dd"
-     //            });
+     $('#example1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+                $('#example2').datepicker({
+                   format: "yyyy-mm-dd"
+                });
             
 
     $(".container").toggle("slide"); 

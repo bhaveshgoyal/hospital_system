@@ -78,6 +78,7 @@
                     </div>
                 </div>
                 <!-- /.row -->
+
  <div class="container" style="display:none;">
      
                 <div class="span10 offset1">
@@ -217,21 +218,10 @@
     <script>
               // When the document is ready
               $(document).ready(function () {
-                  
-                  $('#example1').datepicker({
-                      format: "yyyy-mm-dd"
-                  });  
-                  $('#example2').datepicker({
-                     format: "yyyy-mm-dd"
-                  });
-                 $('#example3').datepicker({
-                     format: "yyyy-mm-dd"
-                  });
-                 $('#example4').datepicker({
-                     format: "yyyy-mm-dd"
-                  });
-    $(".container").toggle("slide"); 
+    
+                $(".container").toggle("slide"); 
               });
+
           </script>
 </body>
 

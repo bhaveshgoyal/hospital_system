@@ -11,7 +11,7 @@
     }
      
     if ( null==$id ) {
-        header("Location: inpatient.php");
+        header("Location: mypatients.php");
     }
      
     if ( !empty($_POST)) {
@@ -80,7 +80,7 @@
          $query = "UPDATE Inpatient SET AdmissionDate='$doad', DischargeDate='$dodis' where PtId = '$x'";
          mysqli_query($dbc, $query);
          mysqli_close($dbc);
-         header("Location: inpatient.php");
+         header("Location: mypatients.php");
       }
     } else {
         $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -139,6 +139,8 @@
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <link href="css/datepicker.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -181,30 +183,30 @@
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Update the Person</h3>
+                        <h3>Update In Patient Info.</h3>
                     </div>
              
-                    <form class="form-horizontal" action="updateinpatient.php?id=<?php echo $id?>" method="post">
-                     <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
+                    <form class="form-horizontal" action="myupdatein.php?id=<?php echo $id?>" method="post">
+                     <div class="control-group">
                         <label class="control-label">First Name</label>
                         <div class="controls">
-                            <input name="fname" type="text"  placeholder="First Name" value="<?php echo !empty($fname)?$fname:'';?>">
+                            <input name="fname" type="text"  class="form-control" placeholder="First Name" value="<?php echo !empty($fname)?$fname:'';?>">
                             <?php if (!empty($nameError)): ?>
-                                <span class="help-inline"><?php echo $nameError;?></span>
+                                <span class="help-block" style="color:red;"><?php echo $nameError;?></span>
                             <?php endif; ?>
                         </div>
                       </div>
                        <div class="control-group">
                         <label class="control-label">Middle Name</label>
                         <div class="controls">
-                            <input name="mname" type="text"  placeholder="Middle Name" value="<?php echo !empty($lname)?$mname:'';?>">
+                            <input name="mname" type="text"  class="form-control" placeholder="Middle Name" value="<?php echo !empty($lname)?$mname:'';?>">
                             
                         </div>
                       </div>
                        <div class="control-group">
                         <label class="control-label">Last Name</label>
                         <div class="controls">
-                            <input name="lname" type="text"  placeholder="Last Name" value="<?php echo !empty($lname)?$lname:'';?>">
+                            <input name="lname" type="text" class="form-control" placeholder="Last Name" value="<?php echo !empty($lname)?$lname:'';?>">
                         </div>
                       </div>
                      
@@ -212,18 +214,18 @@
                       <div class="control-group <?php echo !empty($addError)?'error':'';?>">
                         <label class="control-label">Address</label>
                         <div class="controls">
-                            <input name="address" type="text" placeholder="Address" value="<?php echo !empty($address)?$address:'';?>">
+                            <input name="address" type="text" class="form-control" placeholder="Address" value="<?php echo !empty($address)?$address:'';?>">
                             <?php if (!empty($addError)): ?>
-                                <span class="help-inline"><?php echo $addError;?></span>
+                                <span class="help-block" style="color:red;"><?php echo $addError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
                       <div class="control-group <?php echo !empty($phoneError)?'error':'';?>">
                         <label class="control-label">Phone Number</label>
                         <div class="controls">
-                            <input name="phone" type="text"  placeholder="Phone Number" value="<?php echo !empty($phone)?$phone:'';?>">
+                            <input name="phone" type="text"   class="form-control" placeholder="Phone Number" value="<?php echo !empty($phone)?$phone:'';?>">
                             <?php if (!empty($phoneError)): ?>
-                                <span class="help-inline"><?php echo $phoneError;?></span>
+                                <span class="help-block" style="color:red;"><?php echo $phoneError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
@@ -237,35 +239,35 @@
                       <div class="control-group <?php echo !empty($aadharError)?'error':'';?>">
                         <label class="control-label">Aadhar No.</label>
                         <div class="controls">
-                            <input name="aadhar" type="text"  placeholder="Aadhar Card No." value="<?php echo !empty($aadhar)?$aadhar:'';?>">
+                            <input name="aadhar" type="text" class="form-control" placeholder="Aadhar Card No." value="<?php echo !empty($aadhar)?$aadhar:'';?>">
                             <?php if (!empty($aadharError)): ?>
-                                <span class="help-inline"><?php echo $aadharError;?></span>
+                                <span class="help-block" style="color:red;"><?php echo $aadharError;?></span>
                             <?php endif;?>
                         </div>
                       </div>
                       <div class="control-group <?php echo !empty($dobError)?'error':'';?>">
                        <label class="control-label">Date Of Birth</label>
                        <div class="controls">
-                          <input  type="text" name="dob" placeholder="click to show datepicker"  id="example1" value="<?php echo !empty($dob)?$dob:'';?>">
+                          <input  type="text" name="dob" class="form-control" placeholder="Click To Select Date"  id="example1" value="<?php echo !empty($dob)?$dob:'';?>">
                        </div>
                      </div>
                      <div class="control-group">
                          <label class="control-label">Disease Complaint Of</label>
                          <div class="controls">
-                             <input name="dis" type="text"  placeholder="Disease Complaint Of" value="<?php echo !empty($dis)?$dis:'';?>">
+                             <input name="dis" type="text" class="form-control" placeholder="Disease Complaint Of" value="<?php echo !empty($dis)?$dis:'';?>">
  
                          </div>
                        </div>
                       <div class="control-group">
                        <label class="control-label">Date of Contact</label>
                        <div class="controls">
-                          <input  type="text" name="doct" placeholder="click to show datepicker"  id="example2" value="<?php echo !empty($doct)?$doct:'';?>">
+                          <input  type="text" name="doct" class="form-control" placeholder="Click To Select Date"  id="example2" value="<?php echo !empty($doct)?$doct:'';?>">
                        </div>
                      </div>
                      <div class="control-group">
                          <label class="control-label">Charges</label>
                         <div class="controls">
-                             <input name="charge" type="text"  placeholder="Charge" value="<?php echo !empty($charge)?$charge:'';?>">
+                             <input name="charge" type="text" class="form-control" placeholder="Charge" value="<?php echo !empty($charge)?$charge:'';?>">
  
                          </div>
                        </div>
@@ -273,27 +275,27 @@
                       <div class="control-group">
                          <label class="control-label">Comments</label>
                         <div class="controls">
-                             <input name="comment" type="text"  placeholder="Comments" value="<?php echo !empty($comment)?$comment:'';?>">
+                             <input name="comment" type="text" class="form-control" placeholder="Comments" value="<?php echo !empty($comment)?$comment:'';?>">
  
                          </div>
                        </div>
                        <div class="control-group">
                        <label class="control-label">Date of Admission</label>
                        <div class="controls">
-                          <input  type="text" name="doad" placeholder="click to show datepicker"  id="example3" value="<?php echo !empty($doad)?$doad:'';?>">
+                          <input  type="text" name="doad" class="form-control" placeholder="click to show datepicker"  id="example3" value="<?php echo !empty($doad)?$doad:'';?>">
                        </div>
                      </div>
                     <div class="control-group">
                        <label class="control-label">Date of Discharge</label>
                        <div class="controls">
-                          <input  type="text" name="dodis" placeholder="click to show datepicker"  id="example4" value="<?php echo !empty($dodis)?$dodis:'';?>">
+                          <input  type="text" name="dodis" class="form-control" placeholder="click to show datepicker"  id="example4" value="<?php echo !empty($dodis)?$dodis:'';?>">
                        </div>
                      </div>
   
 
                       <div class="form-actions">
                           <button type="submit" class="btn btn-success">Update</button>
-                          <a class="btn" href="mypatients.php">Back to Patients</a>
+                          <a class="btn btn-primary" href="mypatients.php">Back to Patients</a>
                         </div>
                     </form>
                 </div>
@@ -311,6 +313,7 @@
 
     <!-- jQuery Version 1.11.0 -->
     <script src="js/jquery-1.11.0.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -322,6 +325,25 @@ $(document).ready(function(){
 // }
     // to fade in on page load
     // $(".entire").css("display", "none");
+       $('#example1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+                $('#example2').datepicker({
+                   format: "yyyy-mm-dd"
+                });
+       $('#example3').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+                $('#example2').datepicker({
+                   format: "yyyy-mm-dd"
+                });
+       $('#example4').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+                $('#example2').datepicker({
+                   format: "yyyy-mm-dd"
+                });
+
     $(".container").toggle("slide"); 
      });
 </script>

@@ -33,10 +33,14 @@
         $dob = $_POST['dob'];
         $aadhar = $_POST['aadhar'];
         $dh = $_POST['dh'];
-        $depm = $_POST['depm'];
-        $depw = $_POST['depw'];
+//        $depm = $_POST['depm'];
+//        $depw = $_POST['depw'];
         $spec = $_POST['spec'];
         $deg = $_POST['deg'];
+        if(!empty($dep)) {
+              $dep = explode(':', $dep);
+              $dep = $dep[0];
+         }
 
         // validate input
         $valid = true;
@@ -99,6 +103,10 @@
         $result2 = mysqli_query($dbc, $query);
         $data3 = mysqli_fetch_array($result2);
         $dep = $data3['DepW'];
+        $query = "SELECT * from Department where Id='$dep'";
+        $disp = mysqli_query($dbc, $query);
+        $disp = mysqli_fetch_array($disp);
+
         if($gender == 'Male') {
         $genm = 'checked="checked"';
         $genf = '';
@@ -106,11 +114,11 @@
         else {
         $genm = '';
         $genf = 'checked="checked"';
-        } 
+        }
+        $rrr =  (!empty($disp)?$disp['Id'].':'.$disp['Name']:'');
         mysqli_close($dbc);
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,9 +138,13 @@
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <link href="css/datepicker.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+<style>
+    .form-horizontal .control-group{margin-bottom:20px;*zoom:1}.form-horizontal .control-group:before,.form-horizontal .control-group:after{display:table;line-height:0;content:""}.form-horizontal .control-group:after{clear:both}.form-horizontal .control-label{float:left;width:160px;padding-top:5px;text-align:right}.form-horizontal .controls{*display:inline-block;*padding-left:20px;margin-left:180px;*margin-left:0}.form-horizontal .controls:first-child{*padding-left:180px}.form-horizontal .help-block{margin-bottom:0}.form-horizontal input+.help-block,.form-horizontal select+.help-block,.form-horizontal textarea+.help-block,.form-horizontal .uneditable-input+.help-block,.form-horizontal .input-prepend+.help-block,.form-horizontal .input-append+.help-block{margin-top:10px}.form-horizontal .form-actions{padding-left:180px}table{max-width:100%;background-color:transparent;border-collapse:collapse;border-spacing:0}
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -172,14 +184,14 @@
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Update the Person</h3>
+                        <h3>Update Nurse Info.</h3>
                     </div>
              
                     <form class="form-horizontal" action="myupdatenurse.php?id=<?php echo $id?>" method="post">
                      <div class="control-group <?php echo !empty($nameError)?'error':'';?>">
                         <label class="control-label">First Name</label>
                         <div class="controls">
-                            <input name="fname" type="text"  placeholder="First Name" value="<?php echo !empty($fname)?$fname:'';?>">
+                            <input name="fname" type="text"  class="form-control" placeholder="First Name" value="<?php echo !empty($fname)?$fname:'';?>">
                             <?php if (!empty($nameError)): ?>
                                 <span class="help-inline"><?php echo $nameError;?></span>
                             <?php endif; ?>
@@ -188,14 +200,14 @@
                        <div class="control-group">
                         <label class="control-label">Middle Name</label>
                         <div class="controls">
-                            <input name="mname" type="text"  placeholder="Middle Name" value="<?php echo !empty($lname)?$mname:'';?>">
+                            <input name="mname" type="text"  class="form-control" placeholder="Middle Name" value="<?php echo !empty($lname)?$mname:'';?>">
                             
                         </div>
                       </div>
                        <div class="control-group">
                         <label class="control-label">Last Name</label>
                         <div class="controls">
-                            <input name="lname" type="text"  placeholder="Last Name" value="<?php echo !empty($lname)?$lname:'';?>">
+                            <input name="lname" type="text"  class="form-control" placeholder="Last Name" value="<?php echo !empty($lname)?$lname:'';?>">
                         </div>
                       </div>
                      
@@ -203,7 +215,7 @@
                       <div class="control-group <?php echo !empty($addError)?'error':'';?>">
                         <label class="control-label">Address</label>
                         <div class="controls">
-                            <input name="address" type="text" placeholder="Address" value="<?php echo !empty($address)?$address:'';?>">
+                            <input name="address" type="text" class="form-control" placeholder="Address" value="<?php echo !empty($address)?$address:'';?>">
                             <?php if (!empty($addError)): ?>
                                 <span class="help-inline"><?php echo $addError;?></span>
                             <?php endif;?>
@@ -212,7 +224,7 @@
                       <div class="control-group <?php echo !empty($phoneError)?'error':'';?>">
                         <label class="control-label">Phone Number</label>
                         <div class="controls">
-                            <input name="phone" type="text"  placeholder="Phone Number" value="<?php echo !empty($phone)?$phone:'';?>">
+                            <input name="phone" type="text"  class="form-control" placeholder="Phone Number" value="<?php echo !empty($phone)?$phone:'';?>">
                             <?php if (!empty($phoneError)): ?>
                                 <span class="help-inline"><?php echo $phoneError;?></span>
                             <?php endif;?>
@@ -228,7 +240,7 @@
                       <div class="control-group <?php echo !empty($aadharError)?'error':'';?>">
                         <label class="control-label">Aadhar No.</label>
                         <div class="controls">
-                            <input name="aadhar" type="text"  placeholder="Aadhar Card No." value="<?php echo !empty($aadhar)?$aadhar:'';?>">
+                            <input name="aadhar" type="text"  class="form-control" placeholder="Aadhar Card No." value="<?php echo !empty($aadhar)?$aadhar:'';?>">
                             <?php if (!empty($aadharError)): ?>
                                 <span class="help-inline"><?php echo $aadharError;?></span>
                             <?php endif;?>
@@ -237,22 +249,42 @@
                       <div class="control-group <?php echo !empty($dobError)?'error':'';?>">
                        <label class="control-label">Date Of Birth</label>
                        <div class="controls">
-                          <input  type="text" name="dob" placeholder="click to show datepicker"  id="example1" value="<?php echo !empty($dob)?$dob:'';?>">
+                          <input  type="text" name="dob"  class="form-control" placeholder="Click To Select Date"  id="example1" value="<?php echo !empty($dob)?$dob:'';?>">
                        </div>
                      </div>
                      <div class="control-group <?php echo !empty($dhError)?'error':'';?>">
                        <label class="control-label">Date Of Hiring</label>
                        <div class="controls">
-                          <input  type="text" name="dh" placeholder="click to show datepicker"  id="example2" value="<?php echo !empty($dh)?$dh:'';?>">
+                          <input  type="text" name="dh" class="form-control" placeholder="Click To Select Date"  id="example2" value="<?php echo !empty($dh)?$dh:'';?>">
                        </div>
                      </div>
                      <div class="control-group">
                         <label class="control-label">Department assigned to</label>
                         <div class="controls">
-                            <input name="dep" type="text"  placeholder="Dep. assigned" value="<?php echo !empty($dep)?$dep:'';?>">
+                          <!--  <input name="dep" type="text"  placeholder="Dep. assigned" value="<?php //echo !empty($dep)?$dep:'';?>"> -->
+                         <select class="form-control" name="dep" >
+                         <?php //echo '<option select="selected">'.$rrr.'</option>'; ?>
+                         <?php
+                             $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+                             $query = "Select * from Department";
+                             $getit = mysqli_query($dbc, $query);
+                             while($row = mysqli_fetch_array($getit)) {
+                                 if($rrr != '') {
+                                     if($row['Id'] == $disp['Id']) {
+                                         echo '<option selected="selected">'.$rrr.'</option>';
+                                     }
+                                     else {
+                                         echo '<option>'.$row['Id'].':'.$row['Name'].'</option>';
+                                     }
+                                 }
+                                else {
+                                     echo '<option>'.$row['Id'].':'.$row['Name'].'</option>';
+                                      }                             
+                                 }                           
+                                 ?>
+                          </select>
                         </div>
                       </div>
-
 
 
 
@@ -279,6 +311,8 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/bootstrap-datepicker.js"></script>
     <script>
 $(document).ready(function(){
 //   if ($.browser.webkit) {
@@ -287,12 +321,12 @@ $(document).ready(function(){
 // }
     // to fade in on page load
     // $(".entire").css("display", "none");
-     // $('#example1').datepicker({
-     //                format: "yyyy-mm-dd"
-     //            });  
-     //            $('#example2').datepicker({
-     //               format: "yyyy-mm-dd"
-     //            });
+     $('#example1').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+                $('#example2').datepicker({
+                   format: "yyyy-mm-dd"
+                });
             
 
     $(".container").toggle("slide"); 

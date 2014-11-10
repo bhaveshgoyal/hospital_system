@@ -39,6 +39,7 @@
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+
     <!-- Custom Fonts -->
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -155,8 +156,16 @@
                        <div class="control-group">
                         <label class="control-label">Lab Assigned</label>
                         <div class="controls">
-                            <label class="checkbox">
-                                <?php echo $data2['LabId'];?>
+                                  <label class="checkbox">
+                                <?php 
+                                  $id2 = $data2['LabId'];
+                                  $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+                                  $query = "SELECT Name from Lab where Id='$id2'";
+                                  $result2 = mysqli_query($dbc, $query);
+                                  $result2 = mysqli_fetch_array($result2);
+                                  echo $result2['Name'];
+                                  mysqli_close($dbc);
+                               ?>
                             </label>
                         </div>
                       </div>
@@ -186,21 +195,9 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    
     <script>
 $(document).ready(function(){
-//   if ($.browser.webkit) {
-//     $('input[name="password"]').attr('autocomplete', 'off');
-//     $('input[name="username"]').attr('autocomplete', 'off');
-// }
-    // to fade in on page load
-    // $(".entire").css("display", "none");
-     // $('#example1').datepicker({
-     //                format: "yyyy-mm-dd"
-     //            });  
-     //            $('#example2').datepicker({
-     //               format: "yyyy-mm-dd"
-     //            });
-            
 
     $(".container").toggle("slide"); 
      });

@@ -119,11 +119,11 @@
                     <li>
                         <a href="admin_index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
+               <!--      <li>
                         <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
-                    </li>
+                    </li> -->
                     <li class="">
-                      <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-table"></i> Manage Database</a>
+                      <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-stethoscope"></i> Persons <i class="fa fa-fw fa-caret-down"></i></a>
                        <ul id="demo" class="collapse">
                             <li>
                                 <a href="myemployees.php">Manage Employees</a>
@@ -134,15 +134,15 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <a href="mylabs.php"><i class="fa fa-fw fa-flask"></i>&nbsp;Laboratory</a>
                     </li>
                     <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                        <a href="mydept.php"><i class="fa fa-fw fa-hospital-o"></i> Departments</a>
                     </li>
-                    <li>
+                <!--     <li>
                         <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
-                    <li>
+                    </li> -->
+                    <!--<li> 
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -152,10 +152,10 @@
                                 <a href="#">Dropdown Item</a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
+                    </li> -->
+              <!--       <li>
                         <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

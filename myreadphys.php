@@ -17,10 +17,20 @@
         $query = "Select * from Persons inner join Employee on Employee.PId=Persons.Id inner join Physician on Physician.EId=Employee.Id where PId='$id'";
         $result = mysqli_query($dbc, $query);
         $data2 = mysqli_fetch_array($result);
+        $sendit = $data2['WorksForDep'];
+        $query = "Select * from Department where Id='$sendit'";
+        $result3 = mysqli_query($dbc, $query);
+        $result3 = mysqli_fetch_array($result3);
+        $disp = $result3['Name'];
+        if($data2['ManagesDep'] != 'None') {
+            $disp2 = $disp;
+        }
+        else {
+            $disp2 = 'None';
+        }
         mysqli_close($dbc);
     }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +93,7 @@
      
                 <div class="span10 offset1">
                     <div class="row">
-                        <h3>Nurse's Information</h3>
+                        <h3>Doctor's Information</h3>
                     </div>
                      
                     <div class="form-horizontal" >
@@ -119,15 +129,6 @@
                             </label>
                         </div>
                       </div>
-                        <div class="control-group">
-                        <label class="control-label">Gender</label>
-                        <div class="controls">
-                            <label class="checkbox">
-                                <?php echo $data['Gender'];?>
-                            </label>
-                        </div>
-                      </div>
-
 
                       <div class="control-group">
                         <label class="control-label">Phone</label>
@@ -154,18 +155,18 @@
                         </div>
                       </div>
                        <div class="control-group">
-                        <label class="control-label">Department Manages</label>
+                        <label class="control-label">Manages Department</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data2['ManagesDep'];?>
+                                <?php echo $disp2;?>
                             </label>
                         </div>
                       </div>
                         <div class="control-group">
-                        <label class="control-label">Department Works For</label>
+                        <label class="control-label">Works For Department</label>
                         <div class="controls">
                             <label class="checkbox">
-                                <?php echo $data2['WorksForDep'];?>
+                                 <?php echo $disp;?>
                             </label>
                         </div>
                       </div>
@@ -215,20 +216,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
 $(document).ready(function(){
-//   if ($.browser.webkit) {
-//     $('input[name="password"]').attr('autocomplete', 'off');
-//     $('input[name="username"]').attr('autocomplete', 'off');
-// }
-    // to fade in on page load
-    // $(".entire").css("display", "none");
-     // $('#example1').datepicker({
-     //                format: "yyyy-mm-dd"
-     //            });  
-     //            $('#example2').datepicker({
-     //               format: "yyyy-mm-dd"
-     //            });
-            
-
     $(".container").toggle("slide"); 
      });
 </script>

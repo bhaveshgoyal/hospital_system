@@ -126,7 +126,7 @@
         </div>
     </div>           
 
-<!-- IN PATIENTS -->
+<!-- IN PATIENTS -->  
 <div class="container" id="in" style="display:none;height:auto;overflow:hidden;">
             <div class="row">
                 <h3>Manage IN Patients</h3>
@@ -151,11 +151,12 @@
                   <?php
                    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
                   // $query = 'SELECT * FROM Persons';
+                   $countin = 0;
                    $query = 'Select * from Persons inner join Patient on Patient.PId=Persons.Id inner join Inpatient on Inpatient.PtId=Patient.Id';
                    $result = mysqli_query($dbc, $query);
                    if(!empty($result)) {
                    while($row = mysqli_fetch_array($result)) {
-                    
+                            $countin  = $countin + 1;
                             echo '<tr>';
                             echo '<td>'. $row['Fname'] .' '. $row['Mname']. ' '. $row['Lname'] .'</td>';
                             echo '<td>'. $row['Address'] . '</td>';
@@ -207,9 +208,10 @@
                   // $query = 'SELECT * FROM Persons';
                    $query = 'Select * from Persons inner join Patient on Patient.PId=Persons.Id inner join Outpatient on Outpatient.PtId=Patient.Id';
                    $result = mysqli_query($dbc, $query);
+                   $countout = 0;
                    if(!empty($result)) {
                    while($row = mysqli_fetch_array($result)) {
-                    
+                            $countout = $countout + 1;
                             echo '<tr>';
                             echo '<td>'. $row['Fname'] .' '. $row['Mname']. ' '. $row['Lname'] .'</td>';
                             echo '<td>'. $row['Address'] . '</td>';
